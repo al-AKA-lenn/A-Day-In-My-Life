@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>hari-hari kita</title>
+  <meta name="theme-color" content="#C9D8AA">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Nunito:wght@400;600;700&family=Young+Serif&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <noscript><style>#loader{display:none}body.is-loading{overflow:auto}</style></noscript>
+</head>
+<body class="is-loading">
+
+  <!-- loader: matcha lagi diseduh -->
+  <div id="loader" role="status" aria-live="polite">
+    <svg class="whisk" viewBox="0 0 240 226" aria-hidden="true" focusable="false">
+      <ellipse cx="120" cy="214" rx="82" ry="8" fill="#6F8556" opacity=".22"/>
+      <path d="M96,206 L99,216 L141,216 L144,206 Z" fill="#E6ECD3"/>
+      <path d="M26,112 C26,176 66,208 120,208 C174,208 214,176 214,112 Z" fill="#F8FAEF"/>
+      <path d="M30,140 C66,156 174,156 210,140" fill="none" stroke="#DCE5C4" stroke-width="3" stroke-linecap="round"/>
+      <ellipse cx="120" cy="112" rx="94" ry="20" fill="#E4EBD0"/>
+      <ellipse cx="120" cy="115" rx="84" ry="15" fill="#8FA865"/>
+      <g transform="translate(120 115) scale(1 .18)">
+        <g class="swirl">
+          <path d="M0,0 C10,-6 22,-4 26,6 C30,20 12,34 -6,32 C-30,30 -42,6 -36,-14 C-28,-42 6,-54 34,-46 C64,-38 74,-6 66,20" fill="none" stroke="#B9CC8F" stroke-width="9" stroke-linecap="round" opacity=".85"/>
+        </g>
+      </g>
+      <g id="foam"></g>
+      <ellipse class="ripple" cx="120" cy="118" rx="44" ry="8"/>
+      <ellipse class="ripple b" cx="120" cy="118" rx="44" ry="8"/>
+      <g class="chasen">
+        <rect x="109" y="2" width="22" height="56" rx="9" fill="#D8BE8C"/>
+        <path d="M110,22 H130 M110,32 H130" stroke="#C4A870" stroke-width="2" stroke-linecap="round"/>
+        <path d="M107,56 C96,78 98,100 112,118 H128 C142,100 144,78 133,56 Z" fill="#EBD8AA"/>
+        <path d="M112,60 C108,80 110,100 116,118 M120,60 V118 M128,60 C132,80 130,100 124,118" stroke="#C9AE78" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+      </g>
+    </svg>
+    <p id="loader-text" class="loader-text">ngayak bubuk matcha</p>
+  </div>
+
+  <header class="topbar">
+    <button class="menu-btn" id="menu-btn" aria-label="buka menu" aria-controls="sidebar" aria-expanded="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <span class="topbar-brand">hari-hari kita</span>
+  </header>
+  <div class="scrim" id="scrim"></div>
+
+  <aside class="sidebar" id="sidebar" aria-label="menu utama">
+    <div class="brand">
+      <svg data-icon="lily" viewBox="-70 -64 140 128" aria-hidden="true"></svg>
+      <span>hari-hari<br>kita</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#/home" data-nav="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span>beranda</span></a></li>
+        <li><a href="#/hitung" data-nav="hitung"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v5l3 2M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z"/></svg><span>hitung hari</span></a></li>
+        <li><a href="#/hari" data-nav="hari"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span>satu hari biasa</span></a></li>
+        <li><a href="#/foto" data-nav="foto"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM4 15l5-5 4 4 3-3 4 4"/></svg><span>foto</span></a></li>
+        <li><a href="#/surat" data-nav="surat"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3zM3 7l9 7 9-7"/></svg><span>surat</span></a></li>
+      </ul>
+    </nav>
+    <p class="side-foot">untuk <span data-buat>ica</span></p>
+  </aside>
+
+  <main id="page" tabindex="-1">
+
+    <div class="view" data-view="home">
+    <section class="hero">
+      <div class="hero-text">
+        <h1>hari-hari kita</h1>
+        <p class="hitung" data-needs-days>hari ke-<span data-days>0</span> kita jalan bareng.</p>
+        <p class="lead">buat <span id="buat">ica</span>. tiap bunga di buket ini satu hari yang aku simpen.</p>
+      </div>
+
+      <div class="hero-art">
+        <svg id="bouquet" class="bouquet" viewBox="0 0 400 560" role="group" aria-label="buket lily dan tulip, tiap bunga bisa dipencet"></svg>
+      </div>
+
+      <article id="note" class="note empty" aria-live="polite">
+        <p class="note-kapan"></p>
+        <h2 class="note-judul">belum ada yang kebuka</h2>
+        <p class="note-teks">pencet salah satu bunga di buket itu.</p>
+      </article>
+    </section>
+
+    </div>
+    <div class="view" data-view="hitung" hidden>
+    <section class="count" aria-labelledby="count-title">
+      <div class="count-card">
+        <svg class="count-icon" data-icon="tulip" viewBox="-44 -90 88 100" aria-hidden="true"></svg>
+        <p class="count-kapan">sejak <span id="count-tanggal">27 juli 2026</span></p>
+        <h2 id="count-title">udah sejauh ini</h2>
+        <p class="count-total"><span id="count-total">0</span><small>hari</small></p>
+        <div class="count-grid" role="timer" aria-label="waktu yang sudah berjalan">
+          <div><b id="c-y">0</b><span>tahun</span></div>
+          <div><b id="c-mo">0</b><span>bulan</span></div>
+          <div><b id="c-d">0</b><span>hari</span></div>
+          <div><b id="c-h">00</b><span>jam</span></div>
+          <div><b id="c-mi">00</b><span>menit</span></div>
+          <div class="tick"><b id="c-s">00</b><span>detik</span></div>
+        </div>
+        <p class="count-foot">dan ini bakal terus nambah, detik demi detik.</p>
+      </div>
+    </section>
+    </div>
+    <div class="view" data-view="hari" hidden>
+    <section class="day" aria-labelledby="day-title">
+      <h2 id="day-title">satu hari biasa kita</h2>
+      <ol id="hari-list" class="day-list"></ol>
+    </section>
+
+    </div>
+    <div class="view" data-view="foto" hidden>
+    <section class="photos" aria-labelledby="foto-title">
+      <h2 id="foto-title">album photobooth</h2>
+      <p class="photos-sub">satu strip, tiga gaya.</p>
+      <div id="foto-list" class="album"></div>
+    </section>
+
+    </div>
+    <div class="view" data-view="surat" hidden>
+    <footer class="letter">
+      <div class="letter-paper">
+        <div class="letter-icons" aria-hidden="true">
+          <svg data-icon="tulip" viewBox="-44 -90 88 100"></svg>
+          <svg data-icon="lily" viewBox="-70 -64 140 128"></svg>
+        </div>
+        <div id="surat" class="surat"></div>
+        <p class="ttd" id="ttd"></p>
+      </div>
+      <p class="penutup" data-needs-days>hari ini hari ke-<span data-days>0</span>. besok nambah satu bunga lagi.</p>
+    </footer>
+
+    </div>
+
+  </main>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
