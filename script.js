@@ -35,10 +35,10 @@ const HARI_BIASA = [
 // foto: isi path gambar kamu, contoh 'img/kita1.jpg'. kosongin '' kalo belum ada.
 // warna strip: 'putih', 'blush', 'matcha', atau 'butter'
 const ALBUM = [
-  { judul: 'photobooth pertama', tanggal: '27 juli 2026', warna: 'putih',  foto: ['img/K3MART_1.jpg', 'img/kita2.jpg', 'img/kita3.jpg'] },
-  { judul: 'yang lagi ketawa',   tanggal: '',             warna: 'blush',  foto: ['img/kita4.jpg', 'img/kita5.jpg', 'img/kita6.jpg'] },
-  { judul: 'matcha date',        tanggal: '',             warna: 'matcha', foto: ['img/kita7.jpg', 'img/kita8.jpg', 'img/kita9.jpg'] },
-  { judul: 'yang burem tapi lucu', tanggal: '',           warna: 'butter', foto: ['img/kita10.jpg', 'img/kita11.jpg', 'img/kita12.jpg'] }
+  { judul: 'K3MART', tanggal: '14 OKTOBER 2026', warna: 'putih',  foto: ['Gambar/K3MART_1.jpg', 'Gambar/K3MART_2.jpg', 'Gambar/K3MART_3.jpg'] },
+  { judul: 'KOPKEN',   tanggal: '10 OKTOBER 2026',             warna: 'blush',  foto: ['Gambar/KOPKEN_1.jpeg', 'Gambar/KOPKEN_2.jpg', 'Gambar/KOPKEN_3.jpeg'] },
+  { judul: 'CEMARA',        tanggal: '31 OKTOBER 2026',             warna: 'matcha', foto: ['Gambar/CEMARA_1.jpg', 'Gambar/CEMARA_2.jpg', 'Gambar/CEMARA_3.jpg'] },
+  { judul: 'RICHEESE', tanggal: '31 OKTOBER 2026',           warna: 'butter', foto: ['Gambar/RICHEESE_1.jpg', 'Gambar/RICHEESE_2.jpg', 'Gambar/RICHEESE_3.jpg'] }
 ];
 
 const SURAT = [
