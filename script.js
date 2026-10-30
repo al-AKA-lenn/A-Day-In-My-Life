@@ -262,36 +262,35 @@ function setupBouquet() {
 }
 
 /* =========================================================
-   timeline satu hari
+   timeline satu hari (Daily Planning)
    ========================================================= */
 
 function setupDay() {
   const ol = $('#hari-list');
   ol.innerHTML = HARI_BIASA.map(h =>
-    `<li><span class="jam">${esc(h.jam)}</span><p>${esc(h.teks)}</p></li>`).join('');
+    `<li><div class="card"><span class="jam">${esc(h.jam)}</span><p>${esc(h.teks)}</p></div></li>`).join('');
   const items = $$('li', ol);
+  let timers = [], played = false;
 
-  if (reduceMotion || !('IntersectionObserver' in window)) {
-    items.forEach(li => li.classList.add('lit'));
-    ol.style.setProperty('--grow', 1);
-    return;
-  }
-
-  const io = new IntersectionObserver(entries => entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('lit'); io.unobserve(e.target); }
-  }), { rootMargin: '0px 0px -30% 0px' });
-  items.forEach(li => io.observe(li));
-
-  let ticking = false;
-  const update = () => {
-    const r = ol.getBoundingClientRect();
-    const p = Math.min(1, Math.max(0, (innerHeight * .7 - r.top) / r.height));
-    ol.style.setProperty('--grow', p.toFixed(3));
-    ticking = false;
+  // nyalain kartu satu per satu, garis hijaunya ikut memanjang
+  const set = k => {
+    items.forEach((li, i) => li.classList.toggle('lit', i < k));
+    const g = k === 0 ? 0 : Math.min(1, (items[k - 1].offsetTop + 28) / ol.offsetHeight);
+    ol.style.setProperty('--grow', g.toFixed(3));
   };
-  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-  addEventListener('resize', update);
-  update();
+  const stop = () => { timers.forEach(clearTimeout); timers = []; };
+  const play = () => {
+    stop(); set(0);
+    if (reduceMotion) { set(items.length); return; }
+    items.forEach((_, i) => timers.push(setTimeout(() => set(i + 1), 350 + i * 450)));
+  };
+
+  if (!('IntersectionObserver' in window)) { set(items.length); return; }
+  // jalan otomatis tiap halaman ini dibuka (gak tergantung scroll)
+  new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { if (!played) { played = true; play(); } }
+    else if (!ol.offsetParent) { stop(); set(0); played = false; }   // halaman ditutup: reset
+  }), { threshold: .05 }).observe(ol);
 }
 
 /* =========================================================
