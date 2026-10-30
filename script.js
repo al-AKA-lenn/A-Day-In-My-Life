@@ -35,10 +35,10 @@ const HARI_BIASA = [
 // foto: isi path gambar kamu, contoh 'img/kita1.jpg'. kosongin '' kalo belum ada.
 // warna strip: 'putih', 'blush', 'matcha', atau 'butter'
 const ALBUM = [
-  { judul: 'photobooth pertama', tanggal: '27 juli 2026', warna: 'putih',  foto: ['', '', ''] },
-  { judul: 'yang lagi ketawa',   tanggal: '',             warna: 'blush',  foto: ['', '', ''] },
-  { judul: 'matcha date',        tanggal: '',             warna: 'matcha', foto: ['', '', ''] },
-  { judul: 'yang burem tapi lucu', tanggal: '',           warna: 'butter', foto: ['', '', ''] }
+  { judul: 'photobooth pertama', tanggal: '27 juli 2026', warna: 'putih',  foto: ['img/K3MART_1.jpg', 'img/kita2.jpg', 'img/kita3.jpg'] },
+  { judul: 'yang lagi ketawa',   tanggal: '',             warna: 'blush',  foto: ['img/kita4.jpg', 'img/kita5.jpg', 'img/kita6.jpg'] },
+  { judul: 'matcha date',        tanggal: '',             warna: 'matcha', foto: ['img/kita7.jpg', 'img/kita8.jpg', 'img/kita9.jpg'] },
+  { judul: 'yang burem tapi lucu', tanggal: '',           warna: 'butter', foto: ['img/kita10.jpg', 'img/kita11.jpg', 'img/kita12.jpg'] }
 ];
 
 const SURAT = [
