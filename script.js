@@ -24,11 +24,11 @@ const MOMENTS = [
 
 // urutan jam dalam sehari (ini beneran urut, jadi dipakai sebagai timeline)
 const HARI_BIASA = [
-  { jam: '06.40', teks: 'kamu kirim “pagi”, aku bales pake stiker yang jelek.' },
-  { jam: '12.15', teks: 'foto makan siang, terus debat siapa yang makannya lebih enak.' },
-  { jam: '16.30', teks: '“udah pulang?” padahal kamu udah tau jawabannya.' },
-  { jam: '21.00', teks: 'telfon. gak ngomongin hal penting, dan itu justru enaknya.' },
-  { jam: '23.30', teks: '“tidur gih.” “iya, bentar lagi.” (bohong)' }
+  { jam: '06.00', teks: 'kamu bangun, aku masih tidur' },
+  { jam: '08.00', teks: 'aku bangun langsung live, kamu sudah di kampus' },
+  { jam: '12.00', teks: 'jam 11 end live, aku langsung otw jemput kamu' },
+  { jam: '13.00', teks: 'mam richeese, lanjut jajan di umsu lanjut lagi ke cemara' },
+  { jam: '17.30', teks: 'aku balik, kamu balik sampai rumah call an' }
 ];
 
 // album photobooth: 1 strip = 3 foto. tambah/hapus strip sesuka kamu.
