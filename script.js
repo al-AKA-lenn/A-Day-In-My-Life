@@ -37,12 +37,12 @@ const HARI_BIASA = [
 const ALBUM = [
   { judul: 'K3MART', tanggal: '14 OKTOBER 2026', warna: 'putih',  foto: ['Gambar/K3MART_1.jpg', 'Gambar/K3MART_2.jpg', 'Gambar/K3MART_3.jpg'] },
   { judul: 'KOPKEN',   tanggal: '10 OKTOBER 2026',             warna: 'blush',  foto: ['Gambar/KOPKEN_1.jpeg', 'Gambar/KOPKEN_2.jpg', 'Gambar/KOPKEN_3.jpeg'] },
-  { judul: 'CEMARA',        tanggal: '31 OKTOBER 2026',             warna: 'matcha', foto: ['Gambar/CEMARA_1.jpg', 'Gambar/CEMARA_2.jpg', 'Gambar/CEMARA_3.jpg'] },
-  { judul: 'RICHEESE', tanggal: '31 OKTOBER 2026',           warna: 'butter', foto: ['Gambar/RICHEESE_1.jpg', 'Gambar/RICHEESE_2.jpg', 'Gambar/RICHEESE_3.jpg'] },
+  { judul: 'CEMARA',        tanggal: '31 OKTOBER 2026',             warna: 'matcha', foto: ['Gambar/CEMARA1.jpeg', 'Gambar/CEMARA2.jpeg', 'Gambar/CEMARA3.jpeg'] },
+  { judul: 'RICHEESE', tanggal: '31 OKTOBER 2026',           warna: 'butter', foto: ['Gambar/REECHESE1.jpeg', 'Gambar/REECHESE2.jpeg', 'Gambar/REECHESE3.jpeg'] },
 
   // strip cadangan: masih kosong. ganti judul, tanggal, dan path foto (atau seret fotonya langsung di halaman foto).
-  { judul: 'STRIP 5', tanggal: '', warna: 'blush',  foto: ['', '', ''] },
-  { judul: 'STRIP 6', tanggal: '', warna: 'butter', foto: ['', '', ''] },
+  { judul: 'KIMBAB NARA', tanggal: '7 NOVEMBER 2026', warna: 'blush',  foto: ['Gambar/KIMBAB NARA1.jpeg', 'Gambar/KIMBAB NARA2.jpeg', 'Gambar/KIMBAB NARA3.jpeg'] },
+  { judul: 'PHOTOBOOTH', tanggal: '7 NOVEMBER 2026', warna: 'butter', foto: ['Gambar/PHOTOBOOTH1.jpeg', 'Gambar/PHOTOBOOTH2.jpeg', 'Gambar/PHOTOBOOTH3.jpeg'] },
   { judul: 'STRIP 7', tanggal: '', warna: 'putih',  foto: ['', '', ''] },
   { judul: 'STRIP 8', tanggal: '', warna: 'matcha', foto: ['', '', ''] },
 
