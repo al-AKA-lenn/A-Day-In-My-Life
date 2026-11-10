@@ -32,13 +32,39 @@ const HARI_BIASA = [
 ];
 
 // album photobooth: 1 strip = 3 foto. tambah/hapus strip sesuka kamu.
-// foto: isi path gambar kamu, contoh 'img/kita1.jpg'. kosongin '' kalo belum ada.
+// foto: isi path gambar kamu, contoh 'Gambar/kita1.jpg'. kosongin '' kalo belum ada.
 // warna strip: 'putih', 'blush', 'matcha', atau 'butter'
 const ALBUM = [
   { judul: 'K3MART', tanggal: '14 OKTOBER 2026', warna: 'putih',  foto: ['Gambar/K3MART_1.jpg', 'Gambar/K3MART_2.jpg', 'Gambar/K3MART_3.jpg'] },
   { judul: 'KOPKEN',   tanggal: '10 OKTOBER 2026',             warna: 'blush',  foto: ['Gambar/KOPKEN_1.jpeg', 'Gambar/KOPKEN_2.jpg', 'Gambar/KOPKEN_3.jpeg'] },
   { judul: 'CEMARA',        tanggal: '31 OKTOBER 2026',             warna: 'matcha', foto: ['Gambar/CEMARA_1.jpg', 'Gambar/CEMARA_2.jpg', 'Gambar/CEMARA_3.jpg'] },
-  { judul: 'RICHEESE', tanggal: '31 OKTOBER 2026',           warna: 'butter', foto: ['Gambar/RICHEESE_1.jpg', 'Gambar/RICHEESE_2.jpg', 'Gambar/RICHEESE_3.jpg'] }
+  { judul: 'RICHEESE', tanggal: '31 OKTOBER 2026',           warna: 'butter', foto: ['Gambar/RICHEESE_1.jpg', 'Gambar/RICHEESE_2.jpg', 'Gambar/RICHEESE_3.jpg'] },
+
+  // strip cadangan: masih kosong. ganti judul, tanggal, dan path foto (atau seret fotonya langsung di halaman foto).
+  { judul: 'STRIP 5', tanggal: '', warna: 'blush',  foto: ['', '', ''] },
+  { judul: 'STRIP 6', tanggal: '', warna: 'butter', foto: ['', '', ''] },
+  { judul: 'STRIP 7', tanggal: '', warna: 'putih',  foto: ['', '', ''] },
+  { judul: 'STRIP 8', tanggal: '', warna: 'matcha', foto: ['', '', ''] },
+
+  { judul: 'STRIP 9', tanggal: '', warna: 'blush',  foto: ['', '', ''] },
+  { judul: 'STRIP 10', tanggal: '', warna: 'butter', foto: ['', '', ''] },
+  { judul: 'STRIP 11', tanggal: '', warna: 'putih',  foto: ['', '', ''] },
+  { judul: 'STRIP 12', tanggal: '', warna: 'matcha', foto: ['', '', ''] }
+];
+
+// tanggal penting lain yang mau dihitung mundur di halaman "hitung hari".
+// bulan ke-N dan ulang tahun hubungan kalian sudah otomatis, jadi cukup isi yang lain.
+// contoh: { nama: 'ulang tahun ica', tanggal: '2000-05-17', tiapTahun: true },
+const TANGGAL_PENTING = [
+];
+
+// playlist halaman "lagu kita". taruh file mp3 di folder Musik (sejajar index.html), lalu isi di sini.
+// contoh: { judul: 'judul lagu', artis: 'nama artis', file: 'Musik/lagu1.mp3', cover: 'Musik/lagu1.jpg', catatan: 'kenapa lagu ini' },
+// cover = gambar sampul (boleh dikosongin). catatan = tulisan tangan kecil di bawah judul (boleh dikosongin).
+// kalau belum punya file mp3, boleh pakai link (Spotify / YouTube): { judul: '...', artis: '...', link: 'https://...' }
+const LAGU = [
+  { judul: 'Beautiful (feat. Camila Cabello)', artis: 'Bazzi', file: 'Lagu/Beautiful.mp3', cover: 'Gambar/Beautiful.jpg', catatan: '' },
+  { judul: 'Secret Door', artis: 'Arctic Monkeys', file: 'Lagu/Arctic Monkeys - Secret Door.mp3', cover: 'Gambar/Secret Door.jpg', catatan: '' },
 ];
 
 const SURAT = [
@@ -306,6 +332,7 @@ function iconSvg(type) {
 function setupPhotos() {
   const wrap = $('#foto-list');
   const tilts = [-2.5, 1.8, -1.2, 2.6];
+
   wrap.innerHTML = ALBUM.map((s, i) => `
     <figure class="strip c-${esc(s.warna || 'putih')}" style="--tilt:${tilts[i % tilts.length]}deg">
       <div class="strip-frames">
@@ -429,6 +456,159 @@ function setupNav() {
 }
 
 /* =========================================================
+   tanggal penting: hitung mundur
+   ========================================================= */
+
+const fmtTgl = d => d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }).toLowerCase();
+
+function setupNext() {
+  const box = $('#next-list');
+  if (!box) return;
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(CONFIG.hitungDari || '');
+
+  function compute() {
+    const now = new Date(), today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const out = [];
+    if (m) {   // bulan ke-N dan ulang tahun hubungan, otomatis dari tanggal hitungDari
+      const sy = +m[1], sm = +m[2] - 1, sd = +m[3];
+      const at = n => { const y = sy + Math.floor((sm + n) / 12), mo = (sm + n) % 12; return new Date(y, mo, Math.min(sd, new Date(y, mo + 1, 0).getDate())); };
+      let n = 1;
+      while (at(n) < today && n < 1200) n++;
+      out.push({ nama: n % 12 ? `${n} bulan kita` : `${n / 12} tahun kita`, tgl: at(n) });
+      const y = Math.ceil(n / 12) * 12;
+      if (y !== n) out.push({ nama: `${y / 12} tahun kita`, tgl: at(y) });
+    }
+    TANGGAL_PENTING.forEach(t => {
+      const mm = /^(\d{4})-(\d{2})-(\d{2})$/.exec(t.tanggal || '');
+      if (!mm) return;
+      const d = new Date(+mm[1], +mm[2] - 1, +mm[3]);
+      if (t.tiapTahun) { d.setFullYear(today.getFullYear()); if (d < today) d.setFullYear(today.getFullYear() + 1); }
+      if (d >= today) out.push({ nama: t.nama, tgl: d });
+    });
+    out.sort((a, b) => a.tgl - b.tgl);
+    return out.slice(0, 3).map(o => ({ ...o, sisa: Math.round((o.tgl - today) / 86400000) }));
+  }
+
+  const render = () => {
+    const rows = compute();
+    box.innerHTML = rows.map((o, i) => `
+      <div class="next-card${o.sisa === 0 ? ' hari-ini' : ''}" style="--r:${[-1.2, 1, -.6][i % 3]}deg">
+        <b>${o.sisa === 0 ? 'hari ini' : o.sisa === 1 ? 'besok' : o.sisa}</b>
+        <span>${o.sisa > 1 ? 'hari lagi' : o.sisa === 0 ? 'selamat!' : '\u00a0'}</span>
+        <p>${esc(o.nama)}</p><small>${fmtTgl(o.tgl)}</small>
+      </div>`).join('');
+    const wrapEl = $('#next-wrap');
+    if (wrapEl) wrapEl.hidden = !rows.length;
+  };
+  render();
+  setInterval(render, 60000);
+}
+
+/* =========================================================
+   kebun kita: satu bunga untuk tiap hari, tiap hari nambah satu
+   ========================================================= */
+
+function setupGarden() {
+  const box = $('#garden');
+  if (!box) return;
+  const n = daysSince(CONFIG.mulai);
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(CONFIG.mulai || '');
+  if (n === null || !m) { const g = $('.garden'); if (g) g.remove(); return; }
+  const start = new Date(+m[1], +m[2] - 1, +m[3]);
+  const pal = [['#EBB2BD', '#F4DE92'], ['#F6D3DA', '#EBB2BD'], ['#F4DE92', '#EBB2BD'], ['#FFFBF1', '#F4DE92'], ['#F2B8A2', '#F4DE92']];
+  const dateOf = i => { const d = new Date(start); d.setDate(d.getDate() + i - 1); return fmtTgl(d); };
+
+  box.innerHTML = Array.from({ length: n }, (_, k) => {
+    const i = k + 1, c = pal[(i * 7 + 3) % pal.length];
+    return `<button type="button" class="gf${i === n ? ' today' : ''}" data-i="${i}" aria-label="hari ke-${i}, ${dateOf(i)}"
+      style="--c:${c[0]};--c2:${c[1]};--r:${(i * 47) % 360}deg;--d:${Math.min(k * 14, 1500)}ms">
+      <svg viewBox="-12 -12 24 24" aria-hidden="true"><use href="#gf"/></svg></button>`;
+  }).join('');
+
+  $('#garden-sub').textContent = `${new Intl.NumberFormat('id-ID').format(n)} bunga, satu buat tiap hari. yang paling gede itu hari ini.`;
+  const note = $('#garden-note');
+  note.textContent = `hari ini hari ke-${n}. besok nambah satu bunga lagi.`;
+  box.addEventListener('click', e => {
+    const b = e.target.closest('.gf');
+    if (!b) return;
+    const i = +b.dataset.i;
+    note.textContent = `${i === n ? 'hari ini · ' : ''}hari ke-${i} · ${dateOf(i)}`;
+  });
+}
+
+/* =========================================================
+   lagu kita: pemutar sederhana
+   ========================================================= */
+
+function setupSongs() {
+  const list = $('#lagu-list');
+  if (!list) return;
+  if (!LAGU.length) { $('#player').hidden = true; $('#lagu-kosong').hidden = false; return; }
+
+  const audio = new Audio();
+  audio.preload = 'none';
+  const player = $('#player'), bar = $('#p-bar'), msg = $('#p-msg');
+  const t = s => (isFinite(s) && s > 0) ? `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}` : '0:00';
+  let cur = -1, seeking = false;
+
+  list.innerHTML = LAGU.map((s, i) => `
+    <li><button type="button" class="song" data-i="${i}">
+      ${s.cover ? `<img class="song-cover" src="${esc(s.cover)}" alt="" loading="lazy">` : `<span class="song-no">${i + 1}</span>`}
+      <span class="song-body"><b>${esc(s.judul)}</b><small>${esc(s.artis || '')}</small>${s.catatan ? `<em>${esc(s.catatan)}</em>` : ''}</span>
+      <span class="song-state" aria-hidden="true">${s.file ? '<i class="eq"><b></b><b></b><b></b></i>' : '↗'}</span>
+    </button></li>`).join('');
+
+  function load(i, autoplay) {
+    const s = LAGU[(i + LAGU.length) % LAGU.length];
+    cur = (i + LAGU.length) % LAGU.length;
+    if (!s.file) { if (s.link) window.open(s.link, '_blank', 'noopener'); return; }
+    audio.src = s.file;
+    $('#p-title').textContent = s.judul;
+    $('#p-artist').textContent = s.artis || '';
+    const cv = $('#p-cover');
+    if (s.cover) { cv.src = s.cover; cv.hidden = false; } else { cv.hidden = true; }
+    player.classList.toggle('has-cover', !!s.cover);
+    if ('mediaSession' in navigator && typeof MediaMetadata === 'function') {
+      navigator.mediaSession.metadata = new MediaMetadata({ title: s.judul, artist: s.artis || '', artwork: s.cover ? [{ src: s.cover }] : [] });
+    }
+    msg.textContent = '';
+    bar.value = 0; $('#p-cur').textContent = '0:00'; $('#p-dur').textContent = '0:00';
+    $$('.song', list).forEach(b => b.classList.toggle('on', +b.dataset.i === cur));
+    if (autoplay) audio.play().catch(() => {});
+  }
+  const step = d => {
+    let i = cur;
+    for (let k = 0; k < LAGU.length; k++) { i = (i + d + LAGU.length) % LAGU.length; if (LAGU[i].file) return load(i, true); }
+  };
+
+  list.addEventListener('click', e => { const b = e.target.closest('.song'); if (b) load(+b.dataset.i, true); });
+  $('#p-play').addEventListener('click', () => {
+    if (cur < 0) { const i = LAGU.findIndex(s => s.file); if (i >= 0) load(i, true); return; }
+    audio.paused ? audio.play().catch(() => {}) : audio.pause();
+  });
+  $('#p-prev').addEventListener('click', () => (audio.currentTime > 3 ? (audio.currentTime = 0) : step(-1)));
+  $('#p-next').addEventListener('click', () => step(1));
+  bar.addEventListener('input', () => { seeking = true; $('#p-cur').textContent = t(bar.value / 1000 * audio.duration); });
+  bar.addEventListener('change', () => { if (isFinite(audio.duration)) audio.currentTime = bar.value / 1000 * audio.duration; seeking = false; });
+  audio.addEventListener('timeupdate', () => {
+    if (seeking || !isFinite(audio.duration)) return;
+    bar.value = audio.currentTime / audio.duration * 1000; $('#p-cur').textContent = t(audio.currentTime);
+  });
+  audio.addEventListener('loadedmetadata', () => { $('#p-dur').textContent = t(audio.duration); });
+  audio.addEventListener('play', () => player.classList.add('playing'));
+  audio.addEventListener('pause', () => player.classList.remove('playing'));
+  audio.addEventListener('ended', () => step(1));
+  if ('mediaSession' in navigator) {   // tombol putar/jeda di layar kunci & keyboard
+    const ms = navigator.mediaSession;
+    ms.setActionHandler('play', () => audio.play());
+    ms.setActionHandler('pause', () => audio.pause());
+    ms.setActionHandler('previoustrack', () => step(-1));
+    ms.setActionHandler('nexttrack', () => step(1));
+  }
+  audio.addEventListener('error', () => { player.classList.remove('playing'); msg.textContent = `file lagunya belum ketemu: ${LAGU[cur] ? LAGU[cur].file : ''}`; });
+}
+
+/* =========================================================
    start
    ========================================================= */
 
@@ -442,6 +622,9 @@ document.addEventListener('DOMContentLoaded', () => {
   setupPhotos();
   setupLetter();
   setupCountUp();
+  setupNext();
+  setupGarden();
+  setupSongs();
   setupNav();
   runLoader();
 });

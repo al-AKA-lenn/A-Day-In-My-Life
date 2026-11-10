@@ -13,6 +13,21 @@
 </head>
 <body class="is-loading">
 
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <g id="gf">
+        <g style="fill:var(--c,#EBB2BD)">
+          <ellipse cx="0" cy="-6" rx="3.8" ry="6.2"/>
+          <ellipse cx="0" cy="-6" rx="3.8" ry="6.2" transform="rotate(72)"/>
+          <ellipse cx="0" cy="-6" rx="3.8" ry="6.2" transform="rotate(144)"/>
+          <ellipse cx="0" cy="-6" rx="3.8" ry="6.2" transform="rotate(216)"/>
+          <ellipse cx="0" cy="-6" rx="3.8" ry="6.2" transform="rotate(288)"/>
+        </g>
+        <circle r="2.7" style="fill:var(--c2,#F4DE92)"/>
+      </g>
+    </defs>
+  </svg>
+
   <!-- loader: matcha lagi diseduh -->
   <div id="loader" role="status" aria-live="polite">
     <svg class="whisk" viewBox="0 0 240 226" aria-hidden="true" focusable="false">
@@ -59,6 +74,7 @@
         <li><a href="#/hitung" data-nav="hitung"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v5l3 2M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z"/></svg><span>hitung hari</span></a></li>
         <li><a href="#/hari" data-nav="hari"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span>Daily Planning</span></a></li>
         <li><a href="#/foto" data-nav="foto"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM4 15l5-5 4 4 3-3 4 4"/></svg><span>foto</span></a></li>
+        <li><a href="#/lagu" data-nav="lagu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l11-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM20 16a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></svg><span>lagu kita</span></a></li>
         <li><a href="#/surat" data-nav="surat"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3zM3 7l9 7 9-7"/></svg><span>surat</span></a></li>
       </ul>
     </nav>
@@ -89,6 +105,7 @@
     </div>
     <div class="view" data-view="hitung" hidden>
     <section class="count" aria-labelledby="count-title">
+      <div class="count-wrap">
       <div class="count-card">
         <svg class="count-icon" data-icon="tulip" viewBox="-44 -90 88 100" aria-hidden="true"></svg>
         <p class="count-kapan">sejak <span id="count-tanggal">27 juli 2026</span></p>
@@ -104,6 +121,19 @@
         </div>
         <p class="count-foot">dan ini bakal terus nambah, detik demi detik.</p>
       </div>
+
+      <div id="next-wrap" class="next-wrap">
+        <h3 class="sec-title">sebentar lagi</h3>
+        <div id="next-list" class="next"></div>
+      </div>
+
+      <div class="garden">
+        <h3 class="sec-title">kebun kita</h3>
+        <p id="garden-sub" class="garden-sub"></p>
+        <div id="garden" class="garden-field"></div>
+        <p id="garden-note" class="garden-note" aria-live="polite"></p>
+      </div>
+      </div>
     </section>
     </div>
     <div class="view" data-view="hari" hidden>
@@ -118,9 +148,42 @@
     <section class="photos" aria-labelledby="foto-title">
       <h2 id="foto-title">album photobooth</h2>
       <p class="photos-sub">satu strip, tiga gaya.</p>
+
       <div id="foto-list" class="album"></div>
     </section>
 
+    </div>
+    <div class="view" data-view="lagu" hidden>
+    <section class="songs" aria-labelledby="lagu-title">
+      <h2 id="lagu-title">lagu kita</h2>
+      <p class="photos-sub">2 lagu favorit kita.</p>
+
+      <div id="player" class="player">
+        <img id="p-cover" class="cover" alt="sampul lagu" hidden>
+        <div class="disc" aria-hidden="true"></div>
+        <div class="p-main">
+          <p class="p-title" id="p-title">pilih lagu dulu</p>
+          <p class="p-artist" id="p-artist">&nbsp;</p>
+          <div class="p-time"><span id="p-cur">0:00</span><input id="p-bar" type="range" min="0" max="1000" value="0" aria-label="posisi lagu"><span id="p-dur">0:00</span></div>
+          <div class="p-ctrl">
+            <button type="button" id="p-prev" aria-label="sebelumnya"><svg viewBox="0 0 24 24"><path d="M6 5v14M20 5L9 12l11 7z"/></svg></button>
+            <button type="button" id="p-play" class="big" aria-label="putar atau jeda">
+              <svg class="i-play" viewBox="0 0 24 24"><path d="M8 5l11 7-11 7z"/></svg>
+              <svg class="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg>
+            </button>
+            <button type="button" id="p-next" aria-label="berikutnya"><svg viewBox="0 0 24 24"><path d="M18 5v14M4 5l11 7L4 19z"/></svg></button>
+          </div>
+          <p id="p-msg" class="p-msg" role="status"></p>
+        </div>
+      </div>
+
+      <div id="lagu-kosong" class="lagu-kosong" hidden>
+        <p>belum ada lagu di sini.</p>
+        <p>taruh file mp3 di folder <b>Musik</b>, lalu isi daftar <b>LAGU</b> di bagian atas <b>script.js</b>.</p>
+      </div>
+
+      <ol id="lagu-list" class="song-list"></ol>
+    </section>
     </div>
     <div class="view" data-view="surat" hidden>
     <footer class="letter">
